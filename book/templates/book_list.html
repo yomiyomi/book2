@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Available Books</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            <a href="{{ book.id }}/">{{ book.title }} by {{ book.author }}</a>
+            {% if book.is_borrowed %}
+                (Borrowed by {{ book.borrower_name }})
+            {% else %}
+                (Available)
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

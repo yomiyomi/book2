@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ book.title }}</title>
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <p>Author: {{ book.author }}</p>
+    {% if book.is_borrowed %}
+        <p>Status: Borrowed by {{ book.borrower_name }}</p>
+        <form method="post" action="{% url 'return_book' book.id %}">
+            {% csrf_token %}
+            <button type="submit">Return Book</button>
+        </form>
+    {% else %}
+        <p>Status: Available</p>
+        <form method="post" action="{% url 'borrow_book' book.id %}">
+            {% csrf_token %}
+            <label for="borrower_name">Your Name:</label>
+            <input type="text" name="borrower_name" id="borrower_name" required>
+            <button type="submit">Borrow Book</button>
+        </form>
+    {% endif %}
+    <a href="/">Back to Book List</a>
+    <p>Return URL: {% url 'return_book' book.id %}</p>
+
+
+</body>
+</html>
